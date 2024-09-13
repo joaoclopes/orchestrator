@@ -2,7 +2,7 @@ import { WebSocketGateway, WebSocketServer, SubscribeMessage, OnGatewayConnectio
 import { Server, Socket } from 'socket.io';
 import { QueueService } from './queue.service';
 
-@WebSocketGateway({ namespace: '/queue' })
+@WebSocketGateway({ namespace: 'monitoring' })
 export class QueueGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
 
@@ -29,7 +29,7 @@ export class QueueGateway implements OnGatewayConnection, OnGatewayDisconnect {
       client.emit('queuePosition', { userId, position });
 
       // Para de enviar se o usuário atingir a primeira posição ou não estiver mais na fila
-      if (position === 1 || position === null) {
+      if (position === null) {
         clearInterval(interval);
       }
     }, 15000); // Envia a cada 15 segundos

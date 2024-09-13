@@ -6,7 +6,6 @@ import { AddUserDto } from './dto/add-user.dto';
 export class QueueController {
   constructor(private readonly queueService: QueueService) {}
 
-  // Adicionar usuário à fila via POST
   @Post('add')
   addUserToQueue(@Body() addUserDto: AddUserDto) {
     const { userId, queueId } = addUserDto;
@@ -14,7 +13,6 @@ export class QueueController {
     return { userId, position };
   }
 
-  // Obter a posição do usuário via GET
   @Get('position/:userId/:queueId')
   getUserPosition(@Param('userId') userId: string, @Param('queueId') queueId: string) {
     const position = this.queueService.getUserPosition(userId, queueId);

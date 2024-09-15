@@ -12,7 +12,7 @@ async function bootstrap() {
     methods: ['GET', 'POST'],
     credentials: true, // Habilite se necessário
   });
-  
+
   await app.listen(3000);
 }
 bootstrap();

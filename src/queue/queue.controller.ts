@@ -14,7 +14,10 @@ export class QueueController {
   }
 
   @Get('position/:userId/:queueId')
-  getUserPosition(@Param('userId') userId: string, @Param('queueId') queueId: string) {
+  getUserPosition(
+    @Param('userId') userId: string,
+    @Param('queueId') queueId: string,
+  ) {
     const position = this.queueService.getUserPosition(userId, queueId);
     return { userId, position };
   }

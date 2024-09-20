@@ -1,6 +1,7 @@
 import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { QueueService } from './queue.service';
 import { AddUserDto } from './dto/add-user.dto';
+import { RemoveUserDto } from './dto/removeUser.dto';
 
 @Controller('queue')
 export class QueueController {
@@ -20,5 +21,14 @@ export class QueueController {
   ) {
     const position = this.queueService.getUserPosition(userId, queueId);
     return { userId, position };
+  }
+
+  @Post('exit')
+  async removeUserFromQueue(@Body() removeUserDto: RemoveUserDto) {
+    const { userId, batchId } = removeUserDto;
+
+    await this.queueService.removeUserFromQueue(userId, batchId);
+
+    return { message: `User ${userId} removed from queue ${batchId}` };
   }
 }

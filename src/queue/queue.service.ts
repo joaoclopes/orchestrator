@@ -20,6 +20,7 @@ export class QueueService {
   async removeUserFromQueue(userId: string, batchId: string): Promise<void> {
     const queueKey = `queue:${batchId}`;
     await this.redisService.redisClient.lrem(queueKey, 0, userId);
+    await this.redisService.publish(`queueUpdate:${batchId}`, 'Queue updated');
   }
 
   async getQueue(batchId: string): Promise<string[]> {
